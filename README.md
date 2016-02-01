@@ -25,4 +25,8 @@ Add to your composer.json
 Use in code
 
 ```php
+use SimpleHtml\Dom;
+
+$dom = Dom::str_get_html('<html></html>');
+$dom = Dom::file_get_html('http://www.google.com/');
 ```

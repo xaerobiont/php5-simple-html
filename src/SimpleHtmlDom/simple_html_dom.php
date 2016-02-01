@@ -37,6 +37,7 @@ namespace SimpleHtml\SimpleHtmlDom;
  * @author S.C. Chen <me578022@gmail.com>
  * @author John Schlick
  * @author Rus Carroll
+ * @author Dmitry Klyukin <zvookbox@gmail.com>
  * @version 1.5 ($Rev: 210 $)
  * @package PlaceLocalInclude
  * @subpackage simple_html_dom
@@ -438,8 +439,15 @@ class simple_html_dom_node
         return $ret . $this->_[HDOM_INFO_ENDSPACE] . '>';
     }
 
-    // find elements by css selector
-    //PaperG - added ability for find to lowercase the value of the selector.
+    /**
+     * find elements by css selector
+     * PaperG - added ability for find to lowercase the value of the selector.
+     *
+     * @param $selector
+     * @param null $idx
+     * @param bool|false $lowercase
+     * @return simple_html_dom_node|array|null
+     */
     function find($selector, $idx = null, $lowercase = false)
     {
         $selectors = $this->parse_selector($selector);
@@ -1101,7 +1109,14 @@ class simple_html_dom_node
  */
 class simple_html_dom
 {
+    /**
+     * @var null|simple_html_dom_node
+     */
     public $root = null;
+
+    /**
+     * @var array
+     */
     public $nodes = array();
     public $callback = null;
     public $lowercase = false;
@@ -1242,8 +1257,15 @@ class simple_html_dom
         return $ret;
     }
 
-    // find dom node by css selector
-    // Paperg - allow us to specify that we want case insensitive testing of the value of the selector.
+    /**
+     * find dom node by css selector
+     * Paperg - allow us to specify that we want case insensitive testing of the value of the selector.
+     *
+     * @param $selector
+     * @param null $idx
+     * @param bool|false $lowercase
+     * @return array|null|simple_html_dom_node
+     */
     function find($selector, $idx = null, $lowercase = false)
     {
         return $this->root->find($selector, $idx, $lowercase);
