@@ -46,6 +46,8 @@ namespace SimpleHtml\SimpleHtmlDom;
  * All of the Defines for the classes below.
  * @author S.C. Chen <me578022@gmail.com>
  */
+use SimpleHtml\Dom;
+
 define('HDOM_TYPE_ELEMENT', 1);
 define('HDOM_TYPE_COMMENT', 2);
 define('HDOM_TYPE_TEXT', 3);
@@ -687,6 +689,10 @@ class simple_html_dom_node
         return $selectors;
     }
 
+    /**
+     * @param $name
+     * @return bool|mixed|string
+     */
     function __get($name)
     {
         if (isset($this->attr[$name])) {
@@ -706,6 +712,11 @@ class simple_html_dom_node
         }
     }
 
+    /**
+     * @param $name
+     * @param $value
+     * @return mixed
+     */
     function __set($name, $value)
     {
         global $debug_object;
@@ -727,6 +738,10 @@ class simple_html_dom_node
         $this->attr[$name] = $value;
     }
 
+    /**
+     * @param $name
+     * @return bool
+     */
     function __isset($name)
     {
         switch ($name) {
@@ -741,13 +756,21 @@ class simple_html_dom_node
         return (array_key_exists($name, $this->attr)) ? true : isset($this->attr[$name]);
     }
 
+    /**
+     * @param $name
+     */
     function __unset($name)
     {
         if (isset($this->attr[$name]))
             unset($this->attr[$name]);
     }
 
-    // PaperG - Function to convert the text from one character set to another if the two sets are not the same.
+    /**
+     * PaperG - Function to convert the text from one character set to another if the two sets are not the same.
+     *
+     * @param $text
+     * @return string
+     */
     function convert_text($text)
     {
         global $debug_object;
@@ -909,93 +932,158 @@ class simple_html_dom_node
         return $result;
     }
 
-    // camel naming conventions
+    /**
+     * camel naming conventions
+     * @return array
+     */
     function getAllAttributes()
     {
         return $this->attr;
     }
 
+    /**
+     * @param $name
+     * @return bool|mixed|string
+     */
     function getAttribute($name)
     {
         return $this->__get($name);
     }
 
+    /**
+     * @param $name
+     * @param $value
+     */
     function setAttribute($name, $value)
     {
         $this->__set($name, $value);
     }
 
+    /**
+     * @param $name
+     * @return bool
+     */
     function hasAttribute($name)
     {
         return $this->__isset($name);
     }
 
+    /**
+     * @param $name
+     */
     function removeAttribute($name)
     {
         $this->__set($name, null);
     }
 
+    /**
+     * @param $id
+     * @return array|null
+     */
     function getElementById($id)
     {
         return $this->find("#$id", 0);
     }
 
+    /**
+     * @param $id
+     * @param null $idx
+     * @return array|null
+     */
     function getElementsById($id, $idx = null)
     {
         return $this->find("#$id", $idx);
     }
 
+    /**
+     * @param $name
+     * @return array|null
+     */
     function getElementByTagName($name)
     {
         return $this->find($name, 0);
     }
 
+    /**
+     * @param $name
+     * @param null $idx
+     * @return array|null
+     */
     function getElementsByTagName($name, $idx = null)
     {
         return $this->find($name, $idx);
     }
 
+    /**
+     * @return simple_html_dom_node|null
+     */
     function parentNode()
     {
         return $this->parent();
     }
 
+    /**
+     * @param int $idx
+     * @return array|null
+     */
     function childNodes($idx = -1)
     {
         return $this->children($idx);
     }
 
+    /**
+     * @return mixed
+     */
     function firstChild()
     {
         return $this->first_child();
     }
 
+    /**
+     * @return mixed
+     */
     function lastChild()
     {
         return $this->last_child();
     }
 
+    /**
+     * @return mixed
+     */
     function nextSibling()
     {
         return $this->next_sibling();
     }
 
+    /**
+     * @return null
+     */
     function previousSibling()
     {
         return $this->prev_sibling();
     }
 
+    /**
+     * @return bool
+     */
     function hasChildNodes()
     {
         return $this->has_child();
     }
 
+    /**
+     * @return string
+     */
     function nodeName()
     {
         return $this->tag;
     }
 
-    function appendChild($node)
+    /**
+     * @param $node
+     * @return mixed
+     */
+    function appendChild(simple_html_dom_node $node)
     {
         $node->parent($this);
         return $node;
@@ -1055,6 +1143,15 @@ class simple_html_dom
         'option' => array('option' => 1),
     );
 
+    /**
+     * @param null $str
+     * @param bool|true $lowercase
+     * @param bool|true $forceTagsClosed
+     * @param string $target_charset
+     * @param bool|true $stripRN
+     * @param string $defaultBRText
+     * @param string $defaultSpanText
+     */
     function __construct($str = null, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = true, $defaultBRText = DEFAULT_BR_TEXT, $defaultSpanText = DEFAULT_SPAN_TEXT)
     {
         if ($str) {
@@ -1670,7 +1767,12 @@ class simple_html_dom
         }
     }
 
-    // restore noise to html content
+    /**
+     * restore noise to html content
+     *
+     * @param $text
+     * @return string
+     */
     function restore_noise($text)
     {
         global $debug_object;
@@ -1700,7 +1802,12 @@ class simple_html_dom
         return $text;
     }
 
-    // Sometimes we NEED one of the noise elements.
+    /**
+     * Sometimes we NEED one of the noise elements.
+     *
+     * @param $text
+     * @return mixed
+     */
     function search_noise($text)
     {
         global $debug_object;
@@ -1715,11 +1822,18 @@ class simple_html_dom
         }
     }
 
+    /**
+     * @return mixed
+     */
     function __toString()
     {
         return $this->root->innertext();
     }
 
+    /**
+     * @param $name
+     * @return string
+     */
     function __get($name)
     {
         switch ($name) {
@@ -1736,47 +1850,86 @@ class simple_html_dom
         }
     }
 
-    // camel naming conventions
+    /**
+     * camel naming conventions
+     *
+     * @param int $idx
+     * @return mixed
+     */
     function childNodes($idx = -1)
     {
         return $this->root->childNodes($idx);
     }
 
+    /**
+     * @return mixed
+     */
     function firstChild()
     {
         return $this->root->first_child();
     }
 
+    /**
+     * @return mixed
+     */
     function lastChild()
     {
         return $this->root->last_child();
     }
 
+    /**
+     * @param $name
+     * @param null $value
+     * @return mixed
+     * @throws \Exception
+     */
     function createElement($name, $value = null)
     {
-        return @str_get_html("<$name>$value</$name>")->first_child();
+        return @Dom::str_get_html("<$name>$value</$name>")->first_child();
     }
 
+    /**
+     * @param $value
+     * @return mixed
+     */
     function createTextNode($value)
     {
-        return @end(str_get_html($value)->nodes);
+        return @end(Dom::str_get_html($value)->nodes);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     function getElementById($id)
     {
         return $this->find("#$id", 0);
     }
 
+    /**
+     * @param $id
+     * @param null $idx
+     * @return mixed
+     */
     function getElementsById($id, $idx = null)
     {
         return $this->find("#$id", $idx);
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     function getElementByTagName($name)
     {
         return $this->find($name, 0);
     }
 
+    /**
+     * @param $name
+     * @param int $idx
+     * @return mixed
+     */
     function getElementsByTagName($name, $idx = -1)
     {
         return $this->find($name, $idx);

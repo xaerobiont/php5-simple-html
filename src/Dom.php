@@ -54,7 +54,7 @@ class Dom
      * @return simple_html_dom
      * @throws \Exception
      */
-    function file_get_html($url, $use_include_path = false, $context = null, $offset = -1, $maxLen = -1, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = true, $defaultBRText = DEFAULT_BR_TEXT, $defaultSpanText = DEFAULT_SPAN_TEXT)
+    public static function file_get_html($url, $use_include_path = false, $context = null, $offset = -1, $maxLen = -1, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = true, $defaultBRText = DEFAULT_BR_TEXT, $defaultSpanText = DEFAULT_SPAN_TEXT)
     {
         // We DO force the tags to be terminated.
         $dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
@@ -81,7 +81,7 @@ class Dom
      * @return simple_html_dom
      * @throws \Exception
      */
-    function str_get_html($str, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = true, $defaultBRText = DEFAULT_BR_TEXT, $defaultSpanText = DEFAULT_SPAN_TEXT)
+    public static function str_get_html($str, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = true, $defaultBRText = DEFAULT_BR_TEXT, $defaultSpanText = DEFAULT_SPAN_TEXT)
     {
         $dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
         if (empty($str) || strlen($str) > MAX_FILE_SIZE) {
@@ -97,7 +97,7 @@ class Dom
      * @param bool|true $show_attr
      * @param int $deep
      */
-    function dump_html_tree(simple_html_dom_node $node, $show_attr = true, $deep = 0)
+    public static function dump_html_tree(simple_html_dom_node $node, $show_attr = true, $deep = 0)
     {
         $node->dump($node);
     }
