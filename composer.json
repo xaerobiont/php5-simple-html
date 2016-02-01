@@ -1,0 +1,19 @@
+{
+  "name": "zvook/php5-simple-html",
+  "version": "1.0.0",
+  "description": "Wrapper for simple_html_dom",
+  "keywords": ["php", "html", "dom", "parser"],
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Dmitry Zvook Klyukin",
+      "email": "zvookbox@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "SimpleHtml\\": "src/"
+    }
+  }
+}
