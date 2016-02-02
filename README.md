@@ -10,23 +10,23 @@ Usage
 Add to your composer.json
 
 ```
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/zvook/php5-simple-html"
-    }
-],
-
 "require": {
     "zvook/php5-simple-html": "*"
 }
 ```
 
-Use in code
+Example
 
 ```php
 use SimpleHtml\Dom;
 
 $dom = Dom::str_get_html('<html></html>');
 $dom = Dom::file_get_html('http://www.google.com/');
+
+$div = $dom->getElementById('id1');
+foreach ($div->find('table.table-class') as $row) {
+    $firstCell = $row->find('td', 0);
+    $thirdCell = $row->find('td', 2);
+    $content = $thirdCell->plaintext;
+}
 ```
