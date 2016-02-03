@@ -1042,7 +1042,7 @@ class simple_html_dom_node
     /**
      * @param $id
      * @param null $idx
-     * @return null|simple_html_dom_node[]
+     * @return null|simple_html_dom_node/simple_html_dom_node[]
      */
     function getElementsById($id, $idx = null)
     {
@@ -1061,7 +1061,7 @@ class simple_html_dom_node
     /**
      * @param $name
      * @param null $idx
-     * @return null|simple_html_dom_node[]
+     * @return null|simple_html_dom_node/simple_html_dom_node[]
      */
     function getElementsByTagName($name, $idx = null)
     {
@@ -2006,7 +2006,7 @@ class simple_html_dom
     /**
      * @param $id
      * @param null $idx
-     * @return null|simple_html_dom_node[]
+     * @return null|simple_html_dom_node/simple_html_dom_node[]
      */
     function getElementsById($id, $idx = null)
     {
@@ -2025,7 +2025,7 @@ class simple_html_dom
     /**
      * @param $name
      * @param int $idx
-     * @return null|simple_html_dom_node[]
+     * @return null|simple_html_dom_node|simple_html_dom_node[]
      */
     function getElementsByTagName($name, $idx = -1)
     {
