@@ -24,7 +24,7 @@ $dom = Dom::str_get_html('<html></html>');
 $dom = Dom::file_get_html('http://www.google.com/');
 
 $div = $dom->getElementById('id1');
-foreach ($div->find('table.table-class') as $row) {
+foreach ($div->getElementByTagName('table.table-class')->find('tr') as $row) {
     $firstCell = $row->find('td', 0);
     $thirdCell = $row->find('td', 2);
     $content = $thirdCell->plaintext;
