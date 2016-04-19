@@ -30,7 +30,6 @@ define('HDOM_INFO_ENDSPACE', 7);
 define('DEFAULT_TARGET_CHARSET', 'UTF-8');
 define('DEFAULT_BR_TEXT', "\r\n");
 define('DEFAULT_SPAN_TEXT', " ");
-define('MAX_FILE_SIZE', 600000);
 
 /**
  * Class Dom
@@ -39,6 +38,11 @@ define('MAX_FILE_SIZE', 600000);
  */
 class Dom
 {
+    /**
+     * @var int
+     */
+    public static $maxFileSize = 600000;
+
     /**
      * @param $url
      * @param bool|false $use_include_path
@@ -62,7 +66,7 @@ class Dom
         $contents = file_get_contents($url, $use_include_path, $context, $offset);
         // Paperg - use our own mechanism for getting the contents as we want to control the timeout.
         //$contents = retrieve_url_contents($url);
-        if (empty($contents) || strlen($contents) > MAX_FILE_SIZE) {
+        if (empty($contents) || strlen($contents) > self::$maxFileSize) {
             throw new \Exception('File is empty or too large');
         }
         // The second parameter can force the selectors to all be lowercase.
@@ -84,7 +88,7 @@ class Dom
     public static function str_get_html($str, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = true, $defaultBRText = DEFAULT_BR_TEXT, $defaultSpanText = DEFAULT_SPAN_TEXT)
     {
         $dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
-        if (empty($str) || strlen($str) > MAX_FILE_SIZE) {
+        if (empty($str) || strlen($str) > self::$maxFileSize) {
             $dom->clear();
             throw new \Exception('HTML string is empty or too large');
         }
