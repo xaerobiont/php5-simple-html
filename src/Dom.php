@@ -47,8 +47,6 @@ class Dom
      * @param $url
      * @param bool|false $use_include_path
      * @param null $context
-     * @param int $offset
-     * @param int $maxLen
      * @param bool|true $lowercase
      * @param bool|true $forceTagsClosed
      * @param string $target_charset
@@ -58,12 +56,12 @@ class Dom
      * @return simple_html_dom
      * @throws \Exception
      */
-    public static function file_get_html($url, $use_include_path = false, $context = null, $offset = -1, $maxLen = -1, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = true, $defaultBRText = DEFAULT_BR_TEXT, $defaultSpanText = DEFAULT_SPAN_TEXT)
+    public static function file_get_html($url, $use_include_path = false, $context = null, $lowercase = true, $forceTagsClosed = true, $target_charset = DEFAULT_TARGET_CHARSET, $stripRN = true, $defaultBRText = DEFAULT_BR_TEXT, $defaultSpanText = DEFAULT_SPAN_TEXT)
     {
         // We DO force the tags to be terminated.
         $dom = new simple_html_dom(null, $lowercase, $forceTagsClosed, $target_charset, $stripRN, $defaultBRText, $defaultSpanText);
         // For sourceforge users: uncomment the next line and comment the retreive_url_contents line 2 lines down if it is not already done.
-        $contents = file_get_contents($url, $use_include_path, $context, $offset);
+        $contents = file_get_contents($url, $use_include_path, $context);
         // Paperg - use our own mechanism for getting the contents as we want to control the timeout.
         //$contents = retrieve_url_contents($url);
         if (empty($contents) || strlen($contents) > self::$maxFileSize) {
@@ -98,10 +96,8 @@ class Dom
 
     /**
      * @param simple_html_dom_node $node
-     * @param bool|true $show_attr
-     * @param int $deep
      */
-    public static function dump_html_tree(simple_html_dom_node $node, $show_attr = true, $deep = 0)
+    public static function dump_html_tree(simple_html_dom_node $node)
     {
         $node->dump($node);
     }
